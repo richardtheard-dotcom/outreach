@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Support System Demo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Courier New', 'Monaco', monospace;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .app-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(15, 20, 30, 0.85);
+      border: 2px solid #4a5568;
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #ffd700;
+      text-align: center;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      border-bottom: 2px solid #4a5568;
+      padding-bottom: 15px;
+    }
+
+    h1::before {
+      content: "> ";
+      color: #00ff88;
+    }
+
+    h1::after {
+      content: " <";
+      color: #00ff88;
+    }
+
+    h2 {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #00ff88;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      text-align: left;
+      border-left: 4px solid #00ff88;
+      padding-left: 15px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+      background: rgba(26, 32, 50, 0.6);
+      border: 1px solid #4a5568;
+      border-radius: 4px;
+      padding: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .section:hover {
+      border-color: #00ff88;
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ffd700;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="email"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px;
+      background: #1a1f3a;
+      border: 2px solid #4a5568;
+      border-radius: 4px;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="email"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #00ff88;
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+      background: #252b42;
+    }
+
+    button {
+      padding: 12px 24px;
+      margin-right: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+      border: 2px solid;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    button:first-of-type {
+      background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+      border-color: #ff6b35;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    }
+
+    button:first-of-type:hover {
+      background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+      transform: translateY(-2px);
+    }
+
+    button:last-of-type {
+      background: transparent;
+      border-color: #4a5568;
+      color: #e0e0e0;
+    }
+
+    button:last-of-type:hover {
+      border-color: #00ff88;
+      color: #00ff88;
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
+
+    #result {
+      margin-top: 25px;
+      padding: 20px;
+      background: #0a0e27;
+      border: 2px solid #4a5568;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #00ff88;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+      line-height: 1.8;
+    }
+
+    #result::before {
+      content: "> OUTPUT:\n";
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 30px;
+      background: rgba(15, 20, 30, 0.6);
+      border: 2px solid #4a5568;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    th {
+      background: linear-gradient(135deg, #1a1f3a 0%, #252b42 100%);
+      color: #ffd700;
+      padding: 12px 8px;
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+      border-bottom: 2px solid #4a5568;
+      border-right: 1px solid #4a5568;
+    }
+
+    th:last-child {
+      border-right: none;
+    }
+
+    td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #2d3748;
+      border-right: 1px solid #2d3748;
+      font-size: 13px;
+      color: #e0e0e0;
+    }
+
+    td:last-child {
+      border-right: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover {
+      background: rgba(0, 255, 136, 0.1);
+    }
+
+    tr.low {
+      background-color: rgba(0, 255, 136, 0.15);
+    }
+
+    tr.medium {
+      background-color: rgba(255, 215, 0, 0.15);
+    }
+
+    tr.high {
+      background-color: rgba(255, 107, 53, 0.2);
+    }
+
+    tr.low:hover,
+    tr.medium:hover,
+    tr.high:hover {
+      background-color: rgba(0, 255, 136, 0.25);
+    }
+
+    @media (max-width: 768px) {
+      .app-container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      table {
+        font-size: 11px;
+      }
+
+      th, td {
+        padding: 8px 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+
+<h1>AI-Powered Student Support System</h1>
+
+<div class="section">
+  <label>Student Email</label><br>
+  <input type="email" id="email" placeholder="Enter your email address">
+</div>
+
+<div class="section">
+  <label>Stress Level (1 = Very Stressed, 5 = Great)</label><br>
+  <input type="number" id="stress" min="1" max="5" required>
+</div>
+
+<div class="section">
+  <label>Struggling in any classes?</label><br>
+  <select id="struggling">
+    <option>No</option>
+    <option>A little</option>
+    <option>Yes</option>
+  </select>
+</div>
+
+<div class="section">
+  <label>Assignments Behind</label><br>
+  <select id="assignments">
+    <option>No</option>
+    <option>1-2</option>
+    <option>3+</option>
+  </select>
+</div>
+
+<div class="section">
+  <label>Type of Help Needed</label><br>
+  <select id="helpType">
+    <option>Homework help</option>
+    <option>Study planning</option>
+    <option>Stress support</option>
+  </select>
+</div>
+
+<div class="section">
+  <label>Want someone to follow up?</label><br>
+  <select id="followup">
+    <option>No</option>
+    <option>Maybe</option>
+    <option>Yes</option>
+  </select>
+</div>
+
+<button onclick="getSupport()">Submit Check-In</button>
+<button onclick="resetForm()">Reset</button>
+
+<div id="result"></div>
+
+<h2>Counselor Dashboard</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Student #</th>
+      <th>Email</th>
+      <th>Risk</th>
+      <th>Help Type</th>
+      <th>Tutor</th>
+      <th>Counselor</th>
+      <th>Appointment Time</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody id="dashboardBody"></tbody>
+</table>
+
+</div>
+
+<script>
+
+// Counselor Data with workload tracking
+const counselors = [
+  {
+    name: "Ms. Rodriguez",
+    specialty: "Academic Support",
+    type: "academic",
+    workload: 0
+  },
+  {
+    name: "Mr. Thompson",
+    specialty: "Student Wellness",
+    type: "stress",
+    workload: 0
+  },
+  {
+    name: "Dr. Patel",
+    specialty: "High-Risk Intervention",
+    type: "highrisk",
+    workload: 0
+  }
+];
+
+// Tutor Data
+const tutors = [
+  {
+    name: "Ms. Lee",
+    specialty: "Homework help"
+  },
+  {
+    name: "Mr. Garcia",
+    specialty: "Study planning"
+  },
+  {
+    name: "Ms. Nguyen",
+    specialty: "Stress support"
+  }
+];
+
+function assignTutor(helpType) {
+  // Find a tutor whose specialty matches the selected help type,
+  // otherwise fall back to the first tutor.
+  const match = tutors.find(t => t.specialty === helpType);
+  return match || tutors[0];
+}
+
+let studentCounter = 1;
+let students = [];
+let appointmentTime = 9; // Start at 9:00 AM
+
+// Mock API function simulating a backend call
+function mockSubmitCheckIn(payload) {
+  return new Promise(resolve => {
+    // Simulate network delay
+    setTimeout(() => {
+      const { email, stress, struggling, assignments, helpType, followup } = payload;
+
+      const level = calculateRisk(stress, struggling, assignments, followup);
+      const counselor = assignCounselor(level, helpType);
+      const tutor = assignTutor(helpType);
+      const appointment = generateAppointment(level);
+
+      // Update counselor workload as if the backend was tracking it
+      counselor.workload++;
+
+      let counselorMessage = "";
+
+      if (counselor.type === "academic") {
+        counselorMessage = "Let's organize your assignments into a simple 3-step success plan.";
+      }
+      if (counselor.type === "stress") {
+        counselorMessage = "Let's take a breath together and talk through what's feeling overwhelming.";
+      }
+      if (counselor.type === "highrisk") {
+        counselorMessage = "I'm prioritizing your case and will personally check in with you very soon.";
+      }
+
+      const studentData = {
+        id: studentCounter++,
+        email,
+        risk: level,
+        helpType,
+        tutor: tutor.name,
+        counselor: counselor.name,
+        appointment,
+        status: level === "High" ? "High Priority" : "Scheduled"
+      };
+
+      resolve({
+        level,
+        counselor,
+        appointment,
+        counselorMessage,
+        studentData
+      });
+    }, 400);
+  });
+}
+
+function calculateRisk(stress, struggling, assignments, followup) {
+  let score = 0;
+  if (stress <= 2) score += 2;
+  if (assignments === "3+") score += 2;
+  if (struggling === "Yes") score += 2;
+  if (followup === "Yes") score += 1;
+
+  if (score >= 5) return "High";
+  if (score >= 3) return "Medium";
+  return "Low";
+}
+
+function assignCounselor(level, helpType) {
+
+  if (level === "High") {
+    return counselors.find(c => c.type === "highrisk");
+  }
+
+  if (helpType === "Stress support") {
+    return counselors.find(c => c.type === "stress");
+  }
+
+  // Academic counselor with lowest workload
+  const academicCounselors = counselors.filter(c => c.type === "academic");
+  academicCounselors.sort((a, b) => a.workload - b.workload);
+  return academicCounselors[0];
+}
+
+function generateAppointment(level) {
+
+  if (level === "High") {
+    return "Immediate (Within 1 Hour)";
+  }
+
+  let timeString = appointmentTime + ":00 AM";
+  appointmentTime++;
+
+  if (appointmentTime > 12) appointmentTime = 1;
+
+  return timeString;
+}
+
+async function getSupport() {
+
+  const email = document.getElementById("email").value;
+  const stress = parseInt(document.getElementById("stress").value);
+  const struggling = document.getElementById("struggling").value;
+  const assignments = document.getElementById("assignments").value;
+  const helpType = document.getElementById("helpType").value;
+  const followup = document.getElementById("followup").value;
+
+  const payload = {
+    email,
+    stress,
+    struggling,
+    assignments,
+    helpType,
+    followup
+  };
+
+  // Call the mock API instead of doing all logic directly in the UI
+  const {
+    level,
+    counselor,
+    appointment,
+    counselorMessage,
+    studentData
+  } = await mockSubmitCheckIn(payload);
+
+  document.getElementById("result").innerText =
+    `Support Level: ${level}
+
+Assigned Counselor: ${counselor.name} (${counselor.specialty})
+
+Appointment Scheduled: ${appointment}
+
+Message from Counselor:
+${counselorMessage}`;
+
+  students.push(studentData);
+  updateDashboard();
+}
+
+function updateDashboard() {
+  const tbody = document.getElementById("dashboardBody");
+  tbody.innerHTML = "";
+
+  students.forEach(s => {
+    const tr = document.createElement("tr");
+    tr.className = s.risk.toLowerCase();
+    tr.innerHTML = `
+      <td>${s.id}</td>
+      <td>${s.email || ""}</td>
+      <td>${s.risk}</td>
+      <td>${s.helpType}</td>
+      <td>${s.tutor}</td>
+      <td>${s.counselor}</td>
+      <td>${s.appointment}</td>
+      <td>${s.status}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function resetForm() {
+  document.getElementById("email").value = "";
+  document.getElementById("stress").value = "";
+  document.getElementById("struggling").value = "No";
+  document.getElementById("assignments").value = "No";
+  document.getElementById("helpType").value = "Homework help";
+  document.getElementById("followup").value = "No";
+  document.getElementById("result").innerText = "";
+}
+
+</script>
+
+</body>
+</html>

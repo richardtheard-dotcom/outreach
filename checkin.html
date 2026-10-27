@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check-in – Campus Support</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <script src="js/ui.js"></script>
+</head>
+<body data-page="checkin">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header id="site-header"></header>
+
+  <main id="main">
+    <div class="container">
+      <form id="wizard" class="wizard" novalidate>
+        <div class="progress-meta">
+          <span id="progress-text" aria-live="polite"></span>
+          <span>Private &amp; rule-based demo</span>
+        </div>
+        <div class="progress" role="progressbar" aria-label="Check-in progress" aria-valuemin="0" aria-valuemax="6" aria-valuenow="1" id="progress">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="step-wrap card" id="step-host"></div>
+        <p class="error-msg" id="step-error" role="alert"></p>
+        <div class="wizard-actions">
+          <button type="button" class="btn btn-secondary" id="back-btn">Back</button>
+          <button type="submit" class="btn btn-primary" id="next-btn">Next</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/checkin.js"></script>
+</body>
+</html>
